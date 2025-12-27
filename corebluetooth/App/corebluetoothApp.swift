@@ -11,7 +11,12 @@ import SwiftUI
 struct corebluetoothApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                NavigationView {
+                    DashboardView()
+                }
+            }
+           
         }
     }
 }
