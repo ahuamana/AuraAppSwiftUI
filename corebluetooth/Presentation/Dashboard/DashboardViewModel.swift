@@ -10,6 +10,7 @@ import Combine
 
 class DashboardViewModel : ObservableObject {
     @Published var devices: [DevicePresentationModel] = []
+    @Published var heartRateValues: [HeartRatePoint] = []
     
     private var bluetoothManager: BluetoothApiService
     private var cancellables: Set<AnyCancellable> = []
@@ -21,10 +22,20 @@ class DashboardViewModel : ObservableObject {
     
     func addObservers() {
         
+        //Handle scan devices
         bluetoothManager.$devices
             .map(mapAndSortDevices)
             .sink(receiveValue: { [weak self] devices in
                 self?.devices = devices
+                print("devices \(devices)")
+            })
+            .store(in: &cancellables)
+        
+        //Handle data for the chart
+        bluetoothManager.$bpmValues
+            .sink(receiveValue: { [weak self] bmpValues in
+                self?.heartRateValues = bmpValues
+                print("bmpValues: \(bmpValues)")
             })
             .store(in: &cancellables)
     }
@@ -36,7 +47,7 @@ class DashboardViewModel : ObservableObject {
     }
     
     private func mapAndSortDevices(_ devices: [BluetoothPresentationModel]) -> [DevicePresentationModel] {
-      return devices.map { $0.toDevicePresentationModelNotConnected() }
+      return devices.map { $0.toDevicePresentationModel() }
             .sorted { a, b in
                                 let aUnknown = a.name.caseInsensitiveCompare("Unknown") == .orderedSame
                                 let bUnknown = b.name.caseInsensitiveCompare("Unknown") == .orderedSame

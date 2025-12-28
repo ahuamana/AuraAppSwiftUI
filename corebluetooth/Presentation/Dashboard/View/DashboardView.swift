@@ -120,9 +120,10 @@ extension DashboardView {
             
             Divider()
             
-            ForEach(DeveloperMock.shared.devices) { device in
-                Button(action: {
-                    vm.connect(to: device)
+            ForEach(vm.devices.filter { $0.isConnected }) { device in
+                
+                NavigationLink(destination: {
+                    DeviceDetail(points: DeveloperMock.shared.points)
                 }, label: {
                     DeviceView(
                         device: device,
@@ -157,7 +158,7 @@ extension DashboardView {
                 Spacer()
             }
             
-            ForEach(vm.devices) { device in
+            ForEach(vm.devices.filter {!$0.isConnected }) { device in
                 Button(action: {
                     vm.connect(to: device)
                 }, label: {

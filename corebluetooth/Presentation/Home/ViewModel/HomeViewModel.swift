@@ -24,7 +24,7 @@ class BluetoothViewModel :  ObservableObject {
         
         bluetoothManager.$devices
             .map { devices in
-                devices.map { $0.toDevicePresentationModelNotConnected() }
+                devices.map { $0.toDevicePresentationModel() }
             }
             .sink(receiveValue: { [weak self] devices in
                 self?.devices = devices

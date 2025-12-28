@@ -11,24 +11,26 @@ import CoreBluetooth
 struct BluetoothPresentationModel : Identifiable{
     let id: String
     let name:String
+    var connected:Bool
 }
 
 
 extension BluetoothPresentationModel {
-    static func fromCBPheriphericalDevice(_ peripheral: CBPeripheral) -> BluetoothPresentationModel {
+    static func fromCBPheriphericalDeviceToNewDevice(_ peripheral: CBPeripheral) -> BluetoothPresentationModel {
         return BluetoothPresentationModel(
             id: peripheral.identifier.uuidString,
-            name: peripheral.name ?? "Unknown"
+            name: peripheral.name ?? "Unknown",
+            connected: false
         )
         
     }
     
-    func toDevicePresentationModelNotConnected() -> DevicePresentationModel {
+    func toDevicePresentationModel() -> DevicePresentationModel {
         return DevicePresentationModel(
             id: self.id,
             name: self.name,
             icon: "lanyardcard",
-            isConnected: false
+            isConnected: self.connected
         )
     }
 }
