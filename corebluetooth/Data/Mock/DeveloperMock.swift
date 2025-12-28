@@ -25,7 +25,7 @@ class DeveloperMock {
     
     let devices : [DevicePresentationModel] = [
         DevicePresentationModel(id: UUID().uuidString, name: "Neurosmart watch", icon: "applewatch.side.right", isConnected: true),
-        DevicePresentationModel(id: UUID().uuidString, name: "Sniper Smartwatch", icon: "applewatch.side.right", isConnected: true),
+        //DevicePresentationModel(id: UUID().uuidString, name: "Sniper Smartwatch", icon: "applewatch.side.right", isConnected: true),
         ]
     
     

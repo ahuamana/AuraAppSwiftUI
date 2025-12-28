@@ -22,6 +22,15 @@ extension BluetoothPresentationModel {
         )
         
     }
+    
+    func toDevicePresentationModelNotConnected() -> DevicePresentationModel {
+        return DevicePresentationModel(
+            id: self.id,
+            name: self.name,
+            icon: "lanyardcard",
+            isConnected: false
+        )
+    }
 }
 
 
@@ -31,6 +40,7 @@ struct DevicePresentationModel : Identifiable{
     let icon: String
     let isConnected:Bool
 }
+
 
 
 

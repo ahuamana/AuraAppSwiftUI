@@ -42,12 +42,20 @@ struct DeviceView: View {
             VStack(alignment: .leading) {
                 Text(device.name)
                     .font(.callout)
+                    .lineLimit(1)
                     
                 if device.isConnected {
                     Text("Connected")
                         .font(.subheadline)
                         .foregroundColor(.gray)
+                } else {
+                    Text(device.id)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .lineLimit(1)
                 }
+                
+                
             }
             .padding(.leading, 10)
             
@@ -70,6 +78,14 @@ struct DeviceView: View {
 #Preview {
     DeviceView(
         device: DeveloperMock.shared.devices[0],
+        iconNameDevice: "laptopcomputer",
+        iconNameOptions: "gearshape",
+        colorOptions: Color.blue
+        
+    )
+    
+    DeviceView(
+        device: DeveloperMock.shared.devicesNonConnected[0],
         iconNameDevice: "laptopcomputer",
         iconNameOptions: "gearshape",
         colorOptions: Color.blue

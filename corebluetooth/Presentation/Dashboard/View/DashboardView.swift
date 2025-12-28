@@ -9,18 +9,23 @@ import SwiftUI
 
 struct DashboardView: View {
     
+    @StateObject var vm : DashboardViewModel = DashboardViewModel()
+    
     var body: some View {
         ZStack {
             
-            VStack {
-                topSectionDashboardView
-                
-                myDeviceSection
-                
-                otherDeviceSection
-                
-                Spacer(minLength: 0)
+            ScrollView(showsIndicators: false) {
+                VStack {
+                    topSectionDashboardView
+                    
+                    myDeviceSection
+                    
+                    otherDeviceSection
+                    
+                    Spacer(minLength: 0)
+                }
             }
+            
             
         }
         .background(background)
@@ -94,20 +99,23 @@ extension DashboardView {
                     .background(RoundedRectangle(cornerRadius: 10))
                 })
                 
-                Button(action: {
-                    
+                NavigationLink(destination: {
+                    FindDeviceView()
                 }, label: {
                     Text("Find Device")
                         .bold()
+                        .foregroundColor(.blue)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 13)
                         .padding(.horizontal, 15)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(lineWidth: 1)
+                                .foregroundColor(.blue)
                                        
                         )
                 })
+                
             }
             
             Divider()
@@ -144,7 +152,7 @@ extension DashboardView {
                 Spacer()
             }
             
-            ForEach(DeveloperMock.shared.devicesNonConnected) { device in
+            ForEach(vm.devices) { device in
                 DeviceView(
                     device:device,
                     iconNameDevice: device.icon,
@@ -167,4 +175,5 @@ extension DashboardView {
 
 #Preview {
     DashboardView()
+    
 }

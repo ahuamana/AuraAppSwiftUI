@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import CoreBluetooth
 import Combine
 
 class BluetoothViewModel :  ObservableObject {
     
-    @Published var devices: [BluetoothPresentationModel] = []
+    @Published var devices: [DevicePresentationModel] = []
     
     private var bluetoothManager: BluetoothApiService
     private var cancellables: Set<AnyCancellable> = []
@@ -24,6 +23,9 @@ class BluetoothViewModel :  ObservableObject {
     func addObservers() {
         
         bluetoothManager.$devices
+            .map { devices in
+                devices.map { $0.toDevicePresentationModelNotConnected() }
+            }
             .sink(receiveValue: { [weak self] devices in
                 self?.devices = devices
             })
