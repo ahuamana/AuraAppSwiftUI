@@ -121,13 +121,18 @@ extension DashboardView {
             Divider()
             
             ForEach(DeveloperMock.shared.devices) { device in
-                DeviceView(
-                    device: device,
-                    iconNameDevice: device.icon,
-                    iconNameOptions: "gearshape",
-                    colorOptions: Color.blue,
-                    colorDevice: Color.purple
-                )
+                Button(action: {
+                    vm.connect(to: device)
+                }, label: {
+                    DeviceView(
+                        device: device,
+                        iconNameDevice: device.icon,
+                        iconNameOptions: "gearshape",
+                        colorOptions: Color.blue,
+                        colorDevice: Color.purple
+                    )
+                })
+                
             }
             
             
@@ -153,12 +158,17 @@ extension DashboardView {
             }
             
             ForEach(vm.devices) { device in
-                DeviceView(
-                    device:device,
-                    iconNameDevice: device.icon,
-                    iconNameOptions: "ellipsis",
-                    colorOptions: Color.gray,
-                )
+                Button(action: {
+                    vm.connect(to: device)
+                }, label: {
+                    DeviceView(
+                        device:device,
+                        iconNameDevice: device.icon,
+                        iconNameOptions: "ellipsis",
+                        colorOptions: Color.gray,
+                    )
+                })
+                
             }
             
                 

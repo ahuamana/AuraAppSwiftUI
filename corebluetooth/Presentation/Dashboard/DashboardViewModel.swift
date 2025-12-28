@@ -29,6 +29,12 @@ class DashboardViewModel : ObservableObject {
             .store(in: &cancellables)
     }
     
+    
+    func connect(to device: DevicePresentationModel) {
+        print("Clicked connect to \(device.name)")
+        bluetoothManager.connect(devicePresentationModel: device)
+    }
+    
     private func mapAndSortDevices(_ devices: [BluetoothPresentationModel]) -> [DevicePresentationModel] {
       return devices.map { $0.toDevicePresentationModelNotConnected() }
             .sorted { a, b in
